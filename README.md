@@ -76,7 +76,7 @@ end
 
 You are ready to use your policy!
 
-## Retrieving records
+### Retrieving records
 
 To retrieve all the records accessible by a user, use the `.accessible_by` class method:
 
@@ -84,7 +84,7 @@ To retrieve all the records accessible by a user, use the `.accessible_by` class
 posts = API::V1::Post::Policy.accessible_by(user: user, scope: Post.all)
 ```
 
-## Authorizing operations
+### Authorizing operations
 
 To authorize an operation, first instantiate the policy, then use the predicate methods:
 
@@ -102,7 +102,7 @@ policy = API::V1::Post::Policy.new(user: user, post: post)
 policy.authorize! :update # raises if the user cannot update the post
 ```
 
-## Attribute-level authorization
+### Attribute-level authorization
 
 In some cases, you'll want to prevent a user from updating a certain attribute. You can do that with
 the `#authorize_attr` method:
