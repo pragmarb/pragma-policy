@@ -1,2 +1,5 @@
-$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "pragma/policy"
+require 'coveralls'
+Coveralls.wear!
+
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'pragma/policy'
