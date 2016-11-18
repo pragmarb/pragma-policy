@@ -118,7 +118,8 @@ module API
 
           (
             resource.author_id == user.id &&
-            authorize_attr(:featured) # regular users cannot change the 'featured' attribute
+            # regular users cannot change the 'featured' attribute
+            authorize_attr(:featured)
           )
         end
       end
@@ -140,7 +141,8 @@ module API
 
           (
             resource.author_id == user.id &&
-            authorize_attr(:status, only: ['draft', 'published']) # regular users can only set status to 'draft' or 'published'
+            # regular users can only set status to 'draft' or 'published'
+            authorize_attr(:status, only: ['draft', 'published'])
           )
         end
       end
@@ -162,7 +164,8 @@ module API
 
           (
             resource.author_id == user.id &&
-            authorize_attr(:status, except: ['rejected']) # regular users cannot set the status to 'rejected'
+            # regular users cannot set the status to 'rejected'
+            authorize_attr(:status, except: ['rejected'])
           )
         end
       end
