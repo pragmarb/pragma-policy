@@ -4,6 +4,10 @@ RSpec.describe Pragma::Policy::Base do
 
   let(:policy_klass) do
     Class.new(described_class) do
+      def self.accessible_by(user, relation:) # rubocop:disable Lint/UnusedMethodArgument
+        [OpenStruct.new(id: 1)]
+      end
+
       def show?
         user.id == resource.author_id
       end
@@ -12,6 +16,12 @@ RSpec.describe Pragma::Policy::Base do
 
   let(:user) { OpenStruct.new(id: 1) }
   let(:resource) { OpenStruct.new(author_id: 1) }
+
+  describe '.accessible_by' do
+    it 'returns the records accessible by the user' do
+      expect(subject.class.accessible_by(user, relation: nil).first.id).to eq(1)
+    end
+  end
 
   describe 'predicate methods' do
     context 'when the user is authorized' do

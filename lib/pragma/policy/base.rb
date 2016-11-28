@@ -17,6 +17,18 @@ module Pragma
       #   @return [Object] the resource being operated on
       attr_reader :user, :resource
 
+      # Returns the records accessible by the given user.
+      #
+      # @param user [Object] the user accessing the records
+      # @param relation [Object] the relation to use as a base
+      #
+      # @return [Object]
+      #
+      # @abstract Override to implement retrieving the accessible records
+      def self.accessible_by(user, relation:) # rubocop:disable Lint/UnusedMethodArgument
+        fail NotImplementedError
+      end
+
       # Initializes the policy.
       #
       # @param user [Object] the user operating on the resource
