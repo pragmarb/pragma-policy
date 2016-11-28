@@ -90,16 +90,15 @@ To authorize an operation, first instantiate the policy, then use the predicate 
 
 ```ruby
 policy = API::V1::Post::Policy.new(user: user, resource: post)
-raise 'You cannot update this post!' unless policy.update?
+fail 'You cannot update this post!' unless policy.update?
 ```
 
-Since raising when the operation is forbidden is so common, we provide the `#authorize!` instance
-method as a shorthand syntax. `Pragma::Policy::ForbiddenError` is raised if the predicate method
-returns `false`:
+Since raising when the operation is forbidden is so common, we provide bang methods a shorthand
+syntax. `Pragma::Policy::ForbiddenError` is raised if the predicate method returns `false`:
 
 ```ruby
 policy = API::V1::Post::Policy.new(user: user, resource: post)
-policy.authorize! :update # raises if the user cannot update the post
+policy.update! # raises if the user cannot update the post
 ```
 
 ### Attribute-level authorization

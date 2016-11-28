@@ -1,0 +1,6 @@
+example_id                                 | status | run_time        |
+------------------------------------------ | ------ | --------------- |
+./spec/pragma/policy/base_spec.rb[1:1:1:1] | passed | 0.0008 seconds  |
+./spec/pragma/policy/base_spec.rb[1:1:2:1] | passed | 0.00021 seconds |
+./spec/pragma/policy/base_spec.rb[1:2:1:1] | passed | 0.00126 seconds |
+./spec/pragma/policy/base_spec.rb[1:2:2:1] | passed | 0.00023 seconds |
