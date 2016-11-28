@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Pragma
   module Policy
     # This is the base policy class that all your resource-specific policies should inherit from.
@@ -57,17 +58,21 @@ module Pragma
       # @raise [ArgumentError] if the action is not defined in this policy
       # @raise [ForbiddenError] if the user is not authorized to perform the action
       def authorize(action)
-        fail(
-          ArgumentError,
-          "'#{action}' is not a valid action for this policy."
-        ) unless respond_to?("#{action}?")
+        unless respond_to?("#{action}?")
+          fail(
+            ArgumentError,
+            "'#{action}' is not a valid action for this policy."
+          )
+        end
+
+        return if send("#{action}?")
 
         fail(
           ForbiddenError,
           user: user,
           action: action,
           resource: resource
-        ) unless send("#{action}?")
+        )
       end
     end
   end

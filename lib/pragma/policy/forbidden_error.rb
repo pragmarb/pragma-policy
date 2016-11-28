@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Pragma
   module Policy
     # This error is raised when a user attempts to perform an unauthorized operation on a resource.
