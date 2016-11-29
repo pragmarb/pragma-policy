@@ -86,6 +86,52 @@ module Pragma
           resource: resource
         )
       end
+
+      protected
+
+      # Authorizes a resource attribute.
+      #
+      # @param attribute [Symbol] the name of the attribute
+      # @param options [Hash] options (see {AttributeAuthorizer#authorize} for allowed options)
+      #
+      # @return [Boolean] whether the attribute's value is allowed
+      def authorize_attr(attribute, options = {})
+        AttributeAuthorizer.new(
+          resource: resource,
+          attribute: attribute
+        ).authorize(options)
+      end
+    end
+
+    # This error is raised when a user attempts to perform an unauthorized operation on a
+    # resource.
+    #
+    # @author Alessandro Desantis
+    class ForbiddenError < StandardError
+      MESSAGE = "User is not authorized to perform the '%{action}' action on this resource."
+
+      # @!attribtue [r] user
+      #   @return [Object] the user operating on the resource
+      #
+      # @!attribute [r] action
+      #   @return [Symbol] the attempted action
+      #
+      # @!attribute [r] resource
+      #   @return [Object] the resource being operated on
+      attr_reader :user, :action, :resource
+
+      # Initializes the error.
+      #
+      # @param user [Object] the user operating on the resource
+      # @param action [Symbol] the attempted action
+      # @param resource [Object] the resource being operated on
+      def initialize(user:, action:, resource:)
+        @user = user
+        @action = action.to_sym
+        @resource = resource
+
+        super MESSAGE.gsub('%{action}', action.to_s)
+      end
     end
   end
 end
