@@ -5,7 +5,7 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/pragmarb/pragma-policy.svg?maxAge=3600&style=flat-square)](https://codeclimate.com/github/pragmarb/pragma-policy)
 [![Coveralls](https://img.shields.io/coveralls/pragmarb/pragma-policy.svg?maxAge=3600&style=flat-square)](https://coveralls.io/github/pragmarb/pragma-policy)
 
-Policys are form objects on steroids for your JSON API.
+Policies are form objects on steroids for your JSON API.
 
 They are built on top of [Reform](https://github.com/apotonick/reform).
 
