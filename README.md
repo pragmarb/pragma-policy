@@ -7,8 +7,6 @@
 
 Policies provide fine-grained access control for your API resources.
 
-They are built on top of [Reform](https://github.com/apotonick/reform).
-
 ## Installation
 
 Add this line to your application's Gemfile:
