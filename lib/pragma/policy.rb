@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+require 'pundit'
+
 require 'pragma/policy/version'
 require 'pragma/policy/base'
-require 'pragma/policy/attribute_authorizer'
+require 'pragma/policy/not_authorized_error'
 
 module Pragma
   # Fine-grained access control for your API resources.

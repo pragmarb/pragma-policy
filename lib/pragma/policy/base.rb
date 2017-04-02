@@ -10,6 +10,37 @@ module Pragma
     #
     # @abstract Subclass and implement action methods to create a policy.
     class Base
+      # Authorizes AR scopes and other relations by only returning the records accessible by the
+      # current user. Used, for instance, in index operations.
+      #
+      # @author Alessandro Desantis
+      class Scope
+        # @!attribute [r] user
+        #   @return [Object] the user accessing the records
+        #
+        # @!attribute [r] scope
+        #   @return [Object] the relation to use as a base
+        attr_reader :user, :scope
+
+        # Initializes the scope.
+        #
+        # @param user [Object] the user accessing the records
+        # @param scope [Object] the relation to use as a base
+        def initialize(user, scope)
+          @user = user
+          @scope = scope
+        end
+
+        # Returns the records accessible by the given user.
+        #
+        # @return [Object]
+        #
+        # @abstract Override to implement retrieving the accessible records
+        def resolve
+          fail NotImplementedError
+        end
+      end
+
       # @!attribute [r] user
       #   @return [Object] the user operating on the resource
       #
@@ -17,23 +48,11 @@ module Pragma
       #   @return [Object] the resource being operated on
       attr_reader :user, :resource
 
-      # Returns the records accessible by the given user.
-      #
-      # @param user [Object] the user accessing the records
-      # @param relation [Object] the relation to use as a base
-      #
-      # @return [Object]
-      #
-      # @abstract Override to implement retrieving the accessible records
-      def self.accessible_by(user, relation:) # rubocop:disable Lint/UnusedMethodArgument
-        fail NotImplementedError
-      end
-
       # Initializes the policy.
       #
       # @param user [Object] the user operating on the resource
       # @param resource [Object] the resource being operated on
-      def initialize(user:, resource:)
+      def initialize(user, resource)
         @user = user
         @resource = resource
       end
@@ -71,66 +90,17 @@ module Pragma
       # @raise [ForbiddenError] if the user is not authorized to perform the action
       def authorize(action)
         unless respond_to?("#{action}?")
-          fail(
-            ArgumentError,
-            "'#{action}' is not a valid action for this policy."
-          )
+          fail(ArgumentError, "'#{action}' is not a valid action for this policy.")
         end
 
         return if send("#{action}?")
 
         fail(
-          ForbiddenError,
+          NotAuthorizedError,
           user: user,
           action: action,
           resource: resource
         )
-      end
-
-      protected
-
-      # Authorizes a resource attribute.
-      #
-      # @param attribute [Symbol] the name of the attribute
-      # @param options [Hash] options (see {AttributeAuthorizer#authorize} for allowed options)
-      #
-      # @return [Boolean] whether the attribute's value is allowed
-      def authorize_attr(attribute, options = {})
-        AttributeAuthorizer.new(
-          resource: resource,
-          attribute: attribute
-        ).authorize(options)
-      end
-    end
-
-    # This error is raised when a user attempts to perform an unauthorized operation on a
-    # resource.
-    #
-    # @author Alessandro Desantis
-    class ForbiddenError < StandardError
-      MESSAGE = "User is not authorized to perform the '%{action}' action on this resource."
-
-      # @!attribtue [r] user
-      #   @return [Object] the user operating on the resource
-      #
-      # @!attribute [r] action
-      #   @return [Symbol] the attempted action
-      #
-      # @!attribute [r] resource
-      #   @return [Object] the resource being operated on
-      attr_reader :user, :action, :resource
-
-      # Initializes the error.
-      #
-      # @param user [Object] the user operating on the resource
-      # @param action [Symbol] the attempted action
-      # @param resource [Object] the resource being operated on
-      def initialize(user:, action:, resource:)
-        @user = user
-        @action = action.to_sym
-        @resource = resource
-
-        super MESSAGE.gsub('%{action}', action.to_s)
       end
     end
   end

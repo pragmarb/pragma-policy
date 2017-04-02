@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 RSpec.describe Pragma::Policy::Base do
-  subject { policy_klass.new(user: user, resource: resource) }
+  subject { policy_klass.new(user, resource) }
 
   let(:policy_klass) do
     Class.new(described_class) do
-      def self.accessible_by(user, relation:) # rubocop:disable Lint/UnusedMethodArgument
-        [OpenStruct.new(id: 1)]
+      class Scope < Pragma::Policy::Base::Scope
+        def resolve
+          [OpenStruct.new(id: 1)]
+        end
       end
 
       def show?
@@ -16,12 +18,6 @@ RSpec.describe Pragma::Policy::Base do
 
   let(:user) { OpenStruct.new(id: 1) }
   let(:resource) { OpenStruct.new(author_id: 1) }
-
-  describe '.accessible_by' do
-    it 'returns the records accessible by the user' do
-      expect(subject.class.accessible_by(user, relation: nil).first.id).to eq(1)
-    end
-  end
 
   describe 'predicate methods' do
     context 'when the user is authorized' do
@@ -53,8 +49,18 @@ RSpec.describe Pragma::Policy::Base do
     context 'when the user is not authorized' do
       let(:user) { OpenStruct.new(id: 2) }
 
-      it 'raises a ForbiddenError' do
-        expect { subject.show! }.to raise_error(Pragma::Policy::ForbiddenError)
+      it 'raises a NotAuthorizedError' do
+        expect { subject.show! }.to raise_error(Pragma::Policy::NotAuthorizedError)
+      end
+    end
+  end
+
+  describe Pragma::Policy::Base::Scope do
+    subject { policy_klass::Scope.new(user, nil) }
+
+    describe '#resolve' do
+      it 'returns the records accessible by the user' do
+        expect(subject.resolve.first.id).to eq(1)
       end
     end
   end
