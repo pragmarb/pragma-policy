@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe Pragma::Policy::Base do
   subject { policy_klass.new(user, resource) }
 

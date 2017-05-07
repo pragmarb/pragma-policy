@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Policy
     # This is the base policy class that all your resource-specific policies should inherit from.
