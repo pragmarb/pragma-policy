@@ -34,7 +34,7 @@ To create a policy, simply inherit from `Pragma::Policy::Base`:
 ```ruby
 module API
   module V1
-    module Post
+    module Article
       class Policy < Pragma::Policy::Base
       end
     end
@@ -49,7 +49,7 @@ You can start customizing your policy by defining a scope and operation predicat
 ```ruby
 module API
   module V1
-    module Post
+    module Article
       class Policy < Pragma::Policy::Base
         class Scope < Pragma::Policy::Base::Scope
           def resolve
@@ -81,7 +81,7 @@ You are ready to use your policy!
 To retrieve all the records accessible by a user, use the `.accessible_by` class method:
 
 ```ruby
-posts = API::V1::Post::Policy::Scope.new(user, Post.all).resolve
+posts = API::V1::Article::Policy::Scope.new(user, Article.all).resolve
 ```
 
 ### Authorizing Operations
@@ -89,7 +89,7 @@ posts = API::V1::Post::Policy::Scope.new(user, Post.all).resolve
 To authorize an operation, first instantiate the policy, then use the predicate methods:
 
 ```ruby
-policy = API::V1::Post::Policy.new(user, post)
+policy = API::V1::Article::Policy.new(user, post)
 fail 'You cannot update this post!' unless policy.update?
 ```
 
@@ -97,7 +97,7 @@ Since raising when the operation is forbidden is so common, we provide bang meth
 syntax. `Pragma::Policy::NotAuthorizedError` is raised if the predicate method returns `false`:
 
 ```ruby
-policy = API::V1::Post::Policy.new(user: user, resource: post)
+policy = API::V1::Article::Policy.new(user: user, resource: post)
 policy.update! # raises if the user cannot update the post
 ```
 
