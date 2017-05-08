@@ -42,7 +42,7 @@ module API
 end
 ```
 
-By default, the policy does not return any objects and forbids all operations.
+By default, the policy does not return any objects when scoping and forbids all operations.
 
 You can start customizing your policy by defining a scope and operation predicates:
 
@@ -58,15 +58,15 @@ module API
         end
 
         def show?
-          resource.published? || resource.author_id == user.id
+          record.published? || record.author_id == user.id
         end
 
         def update?
-          resource.author_id == user.id
+          record.author_id == user.id
         end
 
         def destroy?
-          resource.author_id == user.id
+          record.author_id == user.id
         end
       end
     end
@@ -97,7 +97,7 @@ Since raising when the operation is forbidden is so common, we provide bang meth
 syntax. `Pragma::Policy::NotAuthorizedError` is raised if the predicate method returns `false`:
 
 ```ruby
-policy = API::V1::Article::Policy.new(user: user, resource: post)
+policy = API::V1::Article::Policy.new(user, post)
 policy.update! # raises if the user cannot update the post
 ```
 
