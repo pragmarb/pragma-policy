@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Pragma::Policy::Base do
-  subject { policy_klass.new(user, resource) }
+  subject { policy_klass.new(user, record) }
 
   let(:policy_klass) do
     Class.new(described_class) do
@@ -12,13 +12,13 @@ RSpec.describe Pragma::Policy::Base do
       end
 
       def show?
-        user.id == resource.author_id
+        user.id == record.author_id
       end
     end
   end
 
   let(:user) { OpenStruct.new(id: 1) }
-  let(:resource) { OpenStruct.new(author_id: 1) }
+  let(:record) { OpenStruct.new(author_id: 1) }
 
   describe 'predicate methods' do
     context 'when the user is authorized' do
