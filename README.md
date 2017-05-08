@@ -51,8 +51,10 @@ module API
   module V1
     module Post
       class Policy < Pragma::Policy::Base
-        def self.accessible_by(user:, scope:)
-          scope.where('published = ? OR author_id = ?', true, user.id)
+        class Scope < Pragma::Policy::Base::Scope
+          def resolve
+            scope.where('published = ? OR author_id = ?', true, user.id)
+          end
         end
 
         def show?
@@ -74,25 +76,25 @@ end
 
 You are ready to use your policy!
 
-### Retrieving records
+### Retrieving Records
 
 To retrieve all the records accessible by a user, use the `.accessible_by` class method:
 
 ```ruby
-posts = API::V1::Post::Policy.accessible_by(user: user, scope: Post.all)
+posts = API::V1::Post::Policy::Scope.new(user, Post.all).resolve
 ```
 
-### Authorizing operations
+### Authorizing Operations
 
 To authorize an operation, first instantiate the policy, then use the predicate methods:
 
 ```ruby
-policy = API::V1::Post::Policy.new(user: user, resource: post)
+policy = API::V1::Post::Policy.new(user, post)
 fail 'You cannot update this post!' unless policy.update?
 ```
 
 Since raising when the operation is forbidden is so common, we provide bang methods a shorthand
-syntax. `Pragma::Policy::ForbiddenError` is raised if the predicate method returns `false`:
+syntax. `Pragma::Policy::NotAuthorizedError` is raised if the predicate method returns `false`:
 
 ```ruby
 policy = API::V1::Post::Policy.new(user: user, resource: post)
