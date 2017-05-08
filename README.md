@@ -7,6 +7,8 @@
 
 Policies provide fine-grained access control for your API resources.
 
+They are built on top of the [Pundit](https://github.com/elabs/pundit) gem.
+
 ## Installation
 
 Add this line to your application's Gemfile:
