@@ -4,7 +4,7 @@ require 'pundit'
 
 require 'pragma/policy/version'
 require 'pragma/policy/base'
-require 'pragma/policy/not_authorized_error'
+require 'pragma/policy/errors'
 
 module Pragma
   # Fine-grained access control for your API resources.
