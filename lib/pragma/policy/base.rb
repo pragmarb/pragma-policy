@@ -2,10 +2,10 @@
 
 module Pragma
   module Policy
-    # This is the base policy class that all your resource-specific policies should inherit from.
+    # This is the base policy class that all your record-specific policies should inherit from.
     #
     # A policy provides predicate methods for determining whether a user can perform a specific
-    # action on a resource.
+    # action on a record.
     #
     # @author Alessandro Desantis
     #
@@ -43,19 +43,19 @@ module Pragma
       end
 
       # @!attribute [r] user
-      #   @return [Object] the user operating on the resource
+      #   @return [Object] the user operating on the record
       #
-      # @!attribute [r] resource
-      #   @return [Object] the resource being operated on
-      attr_reader :user, :resource
+      # @!attribute [r] record
+      #   @return [Object] the record being operated on
+      attr_reader :user, :record
 
       # Initializes the policy.
       #
-      # @param user [Object] the user operating on the resource
-      # @param resource [Object] the resource being operated on
-      def initialize(user, resource)
+      # @param user [Object] the user operating on the record
+      # @param record [Object] the record being operated on
+      def initialize(user, record)
         @user = user
-        @resource = resource
+        @record = record
       end
 
       # Returns whether the policy responds to the provided missing method.
@@ -100,7 +100,7 @@ module Pragma
           NotAuthorizedError,
           user: user,
           action: action,
-          resource: resource
+          record: record
         )
       end
     end
