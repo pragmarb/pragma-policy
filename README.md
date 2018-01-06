@@ -1,9 +1,9 @@
 # Pragma::Policy
 
-[![Build Status](https://img.shields.io/travis/pragmarb/pragma-policy.svg?maxAge=3600&style=flat-square)](https://travis-ci.org/pragmarb/pragma-policy)
-[![Dependency Status](https://img.shields.io/gemnasium/pragmarb/pragma-policy.svg?maxAge=3600&style=flat-square)](https://gemnasium.com/github.com/pragmarb/pragma-policy)
-[![Code Climate](https://img.shields.io/codeclimate/github/pragmarb/pragma-policy.svg?maxAge=3600&style=flat-square)](https://codeclimate.com/github/pragmarb/pragma-policy)
-[![Coveralls](https://img.shields.io/coveralls/pragmarb/pragma-policy.svg?maxAge=3600&style=flat-square)](https://coveralls.io/github/pragmarb/pragma-policy)
+[![Build Status](https://travis-ci.org/pragmarb/pragma-policy.svg?branch=master)](https://travis-ci.org/pragmarb/pragma-policy)
+[![Dependency Status](https://gemnasium.com/badges/github.com/pragmarb/pragma-policy.svg)](https://gemnasium.com/github.com/pragmarb/pragma-policy)
+[![Coverage Status](https://coveralls.io/repos/github/pragmarb/pragma-policy/badge.svg?branch=master)](https://coveralls.io/github/pragmarb/pragma-policy?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e51e8d7489eb72ab97ba/maintainability)](https://codeclimate.com/github/pragmarb/pragma-policy/maintainability)
 
 Policies provide fine-grained access control for your API resources.
 
