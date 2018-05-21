@@ -2,7 +2,7 @@
 
 module Pragma
   module Policy
-    class NotAuthorizedError < Pundit::NotAuthorizedError
+    class NotAuthorizedError < StandardError
     end
   end
 end
