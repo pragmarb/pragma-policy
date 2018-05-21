@@ -57,7 +57,7 @@ RSpec.describe Pragma::Policy::Base do
   end
 
   describe Pragma::Policy::Base::Scope do
-    subject { policy_klass::Scope.new(user, nil) }
+    subject { policy_klass.const_get('Scope').new(user, nil) }
 
     describe '#resolve' do
       it 'returns the records accessible by the user' do
