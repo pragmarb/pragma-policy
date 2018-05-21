@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added `Pragma::Policy::Pundit` for policies that just delegate to Pundit
+
+### Changed
+
+- `Pragma::Policy::Base::Scope` has been moved to `Pragma::Policy::Scope` (alias provided for BC)
+- `Pragma::Policy::UnauthorizedError` no longer inherits from `Pundit::UnauthorizedError`
+
+### Removed
+
+- Dropped Pundit dependency
+
 ## [2.0.0]
 
 First Pragma 2 release.

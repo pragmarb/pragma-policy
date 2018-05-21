@@ -1,10 +1,7 @@
 require: rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.3
-  Include:
-    - '**/Gemfile'
-    - '**/Rakefile'
+  TargetRubyVersion: 2.5
   Exclude:
    - 'bin/*'
    - 'db/**/*'
@@ -53,7 +50,7 @@ Style/SignalException:
 Style/BracesAroundHashParameters:
   EnforcedStyle: context_dependent
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
   AutoCorrect: true
 

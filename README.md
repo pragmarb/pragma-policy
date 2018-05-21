@@ -78,7 +78,7 @@ end
 
 You are ready to use your policy!
 
-### Retrieving Records
+### Retrieving records
 
 To retrieve all the records accessible by a user, use the `.accessible_by` class method:
 
@@ -86,7 +86,7 @@ To retrieve all the records accessible by a user, use the `.accessible_by` class
 posts = API::V1::Article::Policy::Scope.new(user, Article.all).resolve
 ```
 
-### Authorizing Operations
+### Authorizing operations
 
 To authorize an operation, first instantiate the policy, then use the predicate methods:
 
@@ -101,6 +101,42 @@ syntax. `Pragma::Policy::NotAuthorizedError` is raised if the predicate method r
 ```ruby
 policy = API::V1::Article::Policy.new(user, post)
 policy.update! # raises if the user cannot update the post
+```
+
+### Reusing Pundit policies
+
+If you already use [Pundit](https://github.com/varvet/pundit), there's no need to copy-paste
+policies for your API. You can use `Pragma::Policy::Pundit` to delegate to your existing policies
+and scopes:
+
+```ruby
+module API
+  module V1
+    module Article
+      class Policy < Pragma::Pundit::Policy
+        # This is optional: the inferred default would be ArticlePolicy.
+        self.pundit_klass = CustomArticlePolicy
+      end
+    end
+  end
+end
+```
+
+Note that you can still override specific methods if you want, and we'll keep delegating the rest
+to Pundit:
+
+```ruby
+module API
+  module V1
+    module Article
+      class Policy < Pragma::Pundit::Policy
+        def create?
+          # Your custom create policy here
+        end
+      end
+    end
+  end
+end
 ```
 
 ## Contributing

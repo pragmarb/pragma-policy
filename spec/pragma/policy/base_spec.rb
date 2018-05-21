@@ -5,12 +5,6 @@ RSpec.describe Pragma::Policy::Base do
 
   let(:policy_klass) do
     Class.new(described_class) do
-      class Scope < Pragma::Policy::Base::Scope
-        def resolve
-          [OpenStruct.new(id: 1)]
-        end
-      end
-
       def show?
         user.id == record.author_id
       end
@@ -52,16 +46,6 @@ RSpec.describe Pragma::Policy::Base do
 
       it 'raises a NotAuthorizedError' do
         expect { subject.show! }.to raise_error(Pragma::Policy::NotAuthorizedError)
-      end
-    end
-  end
-
-  describe Pragma::Policy::Base::Scope do
-    subject { policy_klass.const_get('Scope').new(user, nil) }
-
-    describe '#resolve' do
-      it 'returns the records accessible by the user' do
-        expect(subject.resolve.first.id).to eq(1)
       end
     end
   end
