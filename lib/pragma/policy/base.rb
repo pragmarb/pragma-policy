@@ -17,6 +17,7 @@ module Pragma
       # @!attribute [r] record
       #   @return [Object] the record being operated on
       attr_reader :user, :record
+      alias context user
 
       # Initializes the policy.
       #

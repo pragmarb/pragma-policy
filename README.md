@@ -139,6 +139,32 @@ module API
 end
 ```
 
+### Passing additional context
+
+If you want to pass additional context to the policy, just pass it instead of the user object.
+Pragma::Policy never uses your context in any way, so you can pass whatever you want:
+
+```ruby
+policy = API::V1::Article::Policy.new(OpenStruct.new(ip: request.remote_ip, user: user), post)
+policy.update!
+```
+
+In your policy, you can use `#context` as an alias for `#user` for convenience:
+
+```ruby
+module API
+  module V1
+    module Article
+      class Policy < Pragma::Pundit::Policy
+        def update?
+          record.author_id == context.user.id || context.ip == '127.0.0.1'
+        end
+      end
+    end
+  end
+end
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/pragmarb/pragma-policy.

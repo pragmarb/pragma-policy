@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Added `Pragma::Policy::Pundit` for policies that just delegate to Pundit
+- Implement `#context` as an alias of `#user`
 
 ### Changed
 
