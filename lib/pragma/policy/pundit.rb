@@ -24,10 +24,12 @@ module Pragma
                 super
                 @pundit_scope = pundit_scope_klass.new(user, scope)
               end
-                          def resolve
+
+              def resolve
                 @pundit_scope.resolve
               end
-               private
+
+              private
 
               def pundit_scope_klass
                 policy_klass.pundit_klass.const_get('Scope')
