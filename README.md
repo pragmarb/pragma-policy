@@ -165,6 +165,26 @@ module API
 end
 ```
 
+If you are using [pragma-rails](https://github.com/pragmarb/pragma-rails), you may change the
+context passed to the policy by defining a `#pragma_policy_context` method on your controller.
+This way you are not forced to override `#current_user` or `#pragma_user`:
+
+```ruby
+module API
+  module V1
+    class PostsController < ApplicationController
+      # ...
+
+      private
+
+      def pragma_policy_context
+        OpenStruct.new(ip: request.remote_ip, user: current_user)
+      end
+    end
+  end
+end
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/pragmarb/pragma-policy.
