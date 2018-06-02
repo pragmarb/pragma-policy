@@ -1,7 +1,6 @@
 # Pragma::Policy
 
 [![Build Status](https://travis-ci.org/pragmarb/pragma-policy.svg?branch=master)](https://travis-ci.org/pragmarb/pragma-policy)
-[![Dependency Status](https://gemnasium.com/badges/github.com/pragmarb/pragma-policy.svg)](https://gemnasium.com/github.com/pragmarb/pragma-policy)
 [![Coverage Status](https://coveralls.io/repos/github/pragmarb/pragma-policy/badge.svg?branch=master)](https://coveralls.io/github/pragmarb/pragma-policy?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e51e8d7489eb72ab97ba/maintainability)](https://codeclimate.com/github/pragmarb/pragma-policy/maintainability)
 
