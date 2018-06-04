@@ -11,6 +11,7 @@ module Pragma
       # @!attribute [r] scope
       #   @return [Object] the relation to use as a base
       attr_reader :user, :scope
+      alias context user
 
       # Initializes the scope.
       #
