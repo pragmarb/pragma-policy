@@ -50,6 +50,7 @@ module Pragma
 
       def method_missing(method_name, *args, &block)
         return super unless @pundit_policy.respond_to?(method_name)
+
         @pundit_policy.send(method_name, *args, &block)
       end
     end

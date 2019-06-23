@@ -38,6 +38,7 @@ module Pragma
       # @return [Boolean]
       def respond_to_missing?(method_name, include_private = false)
         return super unless method_name[-1] == '!'
+
         respond_to?("#{method_name[0..-2]}?", include_private) || super
       end
 
@@ -49,6 +50,7 @@ module Pragma
       # @return [Object]
       def method_missing(method_name, *args, &block)
         return super unless method_name[-1] == '!'
+
         authorize method_name[0..-2], *args
       end
 
