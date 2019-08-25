@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
-require 'pragma/policy/version'
-require 'pragma/policy/scope'
-require 'pragma/policy/base'
-require 'pragma/policy/pundit'
-require 'pragma/policy/errors'
+require 'zeitwerk'
+
+Zeitwerk::Loader.new.tap do |loader|
+  loader.tag = File.basename(__FILE__, '.rb')
+  loader.inflector = Zeitwerk::GemInflector.new(__FILE__)
+  loader.push_dir(File.expand_path('..', __dir__))
+  loader.setup
+end
 
 module Pragma
   # Fine-grained access control for your API resources.
